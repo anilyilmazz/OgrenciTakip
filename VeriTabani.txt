@@ -1,0 +1,60 @@
+CREATE TABLE ogrenci(
+    ogrenci_tc char(11) NOT NULL PRIMARY KEY,
+    ogrenci_adsoyad varchar(50) NOT NULL,
+    ogrenci_tel varchar(10),
+    ogrenci_dt date,
+    veli_adsoyad varchar(50),
+    veli_tel varchar(10) NOT NULL,
+    adres varchar(300),
+    aolNo char(10),
+    aktif int DEFAULT 1
+    
+)ENGINE=INNODB;
+
+CREATE TABLE ogretmen(
+    ogretmen_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    adisoyadi varchar(50) NOT NULL,
+    ogretmen_tel char(10),
+    ogretmen_kullaniciadi varchar(30),
+    ogretmen_sifre varchar(30),
+    ogretmen_ders varchar(25),
+    aktif int DEFAULT 1
+    
+)ENGINE=INNODB;
+
+
+CREATE TABLE dersler(
+    ders_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    ders_adi varchar(25) NOT NULL,
+    ogretmen int,
+    dersyili Date,
+   FOREIGN KEY(ogretmen) REFERENCES ogretmen(ogretmen_id) on delete cascade
+    
+)ENGINE=INNODB;
+
+CREATE TABLE admin(
+id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    admin_adi varchar(50) NOT NULL,
+   admin_kullaniciadi varchar(20) NOT NULL,
+    admin_sifre varchar(50) NOT NULL
+)ENGINE=INNODB;
+
+
+
+create TABLE dersogrenci(
+dersogrenci_id int PRIMARY KEY not null AUTO_INCREMENT,
+    ders int NOT null,
+    ogrenci_adsoyad varchar(50), 
+    ogrenci char(11) not null,
+    foreign key(ders) REFERENCES dersler(ders_id) ON DELETE CASCADE,
+    foreign key(ogrenci) references ogrenci(ogrenci_tc) ON DELETE CASCADE
+)ENGINE=INNODB;
+
+
+
+create table devamsizlik(
+devamsizlik_id int primary key not null AUTO_INCREMENT,
+    dersogrenci int not null,
+    devamsizlik_tarihi TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN key(dersogrenci) REFERENCES dersogrenci(dersogrenci_id) ON DELETE CASCADE
+)ENGINE=INNODB;                                                                    

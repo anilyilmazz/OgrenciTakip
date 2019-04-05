@@ -1,3 +1,28 @@
+{#{% extends 'base.html' %}#}
+{#{% load crispy_forms_tags %}#}
+{##}
+{#<form method="post" class="uniForm">#}
+{#    {{ my_formset|crispy }}#}
+{#</form>#}
+{##}
+{#{% block body %}#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-6 offset-md-3">#}
+{#                <Form method="POST" enctype="multipart/form-data">#}
+{#                    {% csrf_token %}#}
+{#                    {{ forms|crispy }}#}
+{#                    <input class="btn btn-outline-primary" type="submit" value="Gönder">#}
+{##}
+{#                </Form>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{##}
+{##}
+{#{% endblock %}#}
+
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
@@ -8,12 +33,12 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="">
+
                 <Form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ forms|crispy }}
                     <input class="btn btn-outline-primary" type="submit" value="Gönder">
-
                 </Form>
             </div>
         </div>
@@ -22,3 +47,4 @@
 
 
 {% endblock %}
+

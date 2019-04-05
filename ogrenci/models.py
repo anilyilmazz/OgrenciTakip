@@ -16,8 +16,6 @@ class Ogrenci(models.Model):
     def __str__(self):
         return self.adSoyad
 
-    def get_absolute_url(self):
-        return reverse('ogrenci:detay', kwargs={'tc': self.tc})
-
     def get_update_url(self):
         return reverse('ogrenci:duzenle', kwargs={'tc': self.tc})
+

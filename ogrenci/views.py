@@ -1,10 +1,10 @@
 import pandas
-
 from django.contrib import messages
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Ogrenci
+
 from .forms import ogrenci_Ekle_form
+from .models import Ogrenci
 
 
 # Create your views here.
@@ -41,7 +41,6 @@ def Excel(request):
             ogrenciler.append(Ogrenci())
             ogrenciler[index].tc = data.iloc[index, 0]
             ogrenciler[index].adSoyad = data.iloc[index, 1]
-
             ogrenciler[index].dogum_tarihi = data.iloc[index, 2]
             ogrenciler[index].tel = data.iloc[index, 3]
             ogrenciler[index].aolNo = data.iloc[index, 4]
@@ -55,22 +54,24 @@ def Excel(request):
     return render(request, 'ogrenci/excelForm.html')
 
 
-def ogrenci_detay(request, tc):
-    ogrenci = get_object_or_404(Ogrenci, tc=tc)
-    contex = {
-        'ogrenci': ogrenci,
-    }
-    return render(request, 'ogrenci/detay.html', contex)
+# def ogrenci_detay(request, tc):
+#     ogrenci = get_object_or_404(Ogrenci, tc=tc)
+#     contex = {
+#         'ogrenci': ogrenci,
+#     }
+#     return render(request, 'ogrenci/detay.html', contex)
 
 
 def ogrenci_duzenle(request, tc):
     # if not request.user.is_authenticated:
     #     return Http404()
+
     ogrenci = get_object_or_404(Ogrenci, tc=tc)
-    forms = ogrenci_Ekle_form(request.POST or None, request.FILES or None, instance=ogrenci)
+    forms = ogrenci_Ekle_form(request.POST or None, instance=ogrenci)
+
     if forms.is_valid():
         forms.save()
-        # messages.success(request, 'Başarılı Bir Şekilde Güncellediniz.')
-        return HttpResponseRedirect(ogrenci.get_absolute_url())
+        messages.success(request, 'Başarılı Bir Şekilde Güncellediniz.',extra_tags='Güncelleme Başarılı')
+        return HttpResponseRedirect('')
     context = {'forms': forms}
     return render(request, 'ogrenci/form.html', context)

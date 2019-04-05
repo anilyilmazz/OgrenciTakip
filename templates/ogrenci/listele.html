@@ -21,8 +21,8 @@
             {% for  ogrenci in ogrenciler %}
                 <tr>
 {#                href="{{ ogrenci.get_absolute_url }}"#}
-                    <td><a href="{{ ogrenci.get_absolute_url }}" >{{ forloop.counter }}</a></td>
-{#                     href="{{ ogrenci.get_update_url }}"#}
+                    <td><a href="{{ ogrenci.get_update_url }}" >{{ forloop.counter }}</a></td>
+
                     <td><a>{{ ogrenci.tc }}</a></td>
                     <td>{{ ogrenci.adSoyad }}   </td>
                     <td>{{ ogrenci.tel }}  </td>
