@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group offset-1">
+            <div class="row m-1">
+                <div class="form-group m-1">
+                    {{ forms.adSoyad|as_crispy_field }}
+                </div>
+                <div class="form-group m-1">
+                    {{ forms.tc|as_crispy_field }}
+                </div>
+                <div class="form-group m-1">
+                    {{ forms.aolNo|as_crispy_field }}
+                </div>
+                <div class="form-group m-1">
+                    {{ forms.tel|as_crispy_field }}
+                </div>
+                <div class="form-group m-1">
+                    {{ forms.dogum_tarihi|as_crispy_field }}
+                </div>
+                <div class="form-group m-1">
+                    {{ forms.veli_ad|as_crispy_field }}
+                </div>
+                <div class="form-group m-1">
+                    {{ forms.veli_tel|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row mb-1">
+
+            </div>
+
+            <div class="row m-1">
+                <div class="form-group m-1  ">
+                    {{ forms.adres|as_crispy_field }}
+                </div>
+                <div class="form-group mr-1 ml-2 mt-5">
+                    {{ forms.aktif|as_crispy_field }}
+                </div>
+
+                <div class="form-group mr-1 ml-2 mt-5">
+                    <input class="btn btn-outline-success offset-md-6" type="submit" name="submit" value="Güncelle"
+                           id="submit"/>
+                </div>
+                <div class="form-group">
+                    <a href="{{ ogrenci.get_delete_url }}" class="btn btn-outline-danger" role="button">Sil</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+{% endblock %}
+

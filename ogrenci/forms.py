@@ -2,7 +2,7 @@ from django import forms
 from .models import Ogrenci
 
 
-class ogrenci_Ekle_form(forms.ModelForm):
+class OgrenciForm(forms.ModelForm):
     class Meta:
         model = Ogrenci
         fields = [
@@ -18,5 +18,5 @@ class ogrenci_Ekle_form(forms.ModelForm):
         ]
 
 
-class Excel_Deneme(forms.Form):
+class ExcelIceAktar(forms.Form):
     dosya = forms.FileField(label='Excel Dosyasını Seçiniz!')

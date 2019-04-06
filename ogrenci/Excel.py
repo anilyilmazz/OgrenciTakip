@@ -1,5 +1,5 @@
 import pandas
-from ogrenci.forms import ogrenci_Ekle_form
+from ogrenci.forms import OgrenciForm
 from datetime import datetime
 
 yol = r'C:\Users\yunus\Desktop\ogrenciler.xlsx'
@@ -7,7 +7,7 @@ yol = r'C:\Users\yunus\Desktop\ogrenciler.xlsx'
 data = pandas.read_excel(io=yol, sheet_name=0)  # , encoding='utf-8'
 ogrenciler = []
 for index in range(len(data)):
-    ogrenciler.append(ogrenci_Ekle_form())
+    ogrenciler.append(OgrenciForm())
 
     ogrenciler[index].tc = data.iloc[index, 0]
     ogrenciler[index].adSoyad = data.iloc[index, 1]

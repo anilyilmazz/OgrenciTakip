@@ -1,9 +1,9 @@
 import pandas
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import ogrenci_Ekle_form
+from .forms import OgrenciForm
 from .models import Ogrenci
 
 
@@ -22,7 +22,7 @@ def ogrenci_listele(request):
 def ogrenci_ekle(request):
     # if not request.user.is_authenticated:
     #     return Http404()
-    forms = ogrenci_Ekle_form(request.POST or None)
+    forms = OgrenciForm(request.POST or None)
     if forms.is_valid():
         forms.save()
         messages.success(request, 'Kayıt Eklendi', extra_tags='Mesaj Başarılı')
@@ -54,24 +54,25 @@ def Excel(request):
     return render(request, 'ogrenci/excelForm.html')
 
 
-# def ogrenci_detay(request, tc):
-#     ogrenci = get_object_or_404(Ogrenci, tc=tc)
-#     contex = {
-#         'ogrenci': ogrenci,
-#     }
-#     return render(request, 'ogrenci/detay.html', contex)
-
-
 def ogrenci_duzenle(request, tc):
     # if not request.user.is_authenticated:
     #     return Http404()
 
     ogrenci = get_object_or_404(Ogrenci, tc=tc)
-    forms = ogrenci_Ekle_form(request.POST or None, instance=ogrenci)
+    forms = OgrenciForm(request.POST or None, instance=ogrenci)
 
     if forms.is_valid():
         forms.save()
-        messages.success(request, 'Başarılı Bir Şekilde Güncellediniz.',extra_tags='Güncelleme Başarılı')
-        return HttpResponseRedirect('')
-    context = {'forms': forms}
-    return render(request, 'ogrenci/form.html', context)
+        messages.success(request, 'Başarılı Bir Şekilde Güncellediniz.')
+
+        return HttpResponseRedirect(ogrenci.get_list_url())
+    context = {'forms': forms, 'ogrenci': ogrenci}
+    return render(request, 'ogrenci/updateForm.html', context)
+
+
+def ogrenci_sil(request, tc):
+    # if not request.user.is_authenticated:
+    #     return Http404()
+    ogrenci = get_object_or_404(Ogrenci, tc=tc)
+    ogrenci.delete()
+    return redirect('ogrenci:listele')

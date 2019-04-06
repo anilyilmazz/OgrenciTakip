@@ -7,7 +7,7 @@ class Ogrenci(models.Model):
     adSoyad = models.CharField(max_length=50, verbose_name='Adı', null=False)
     dogum_tarihi = models.DateField(verbose_name='Doğum Tarihi', null=True)
     tel = models.CharField(max_length=10, verbose_name='Telefon Numarası')
-    aolNo = models.CharField(max_length=10, verbose_name='AOL Numarası', null=False)
+    aolNo = models.CharField(max_length=10, verbose_name='AOL Num', null=True)
     veli_ad = models.CharField(max_length=50, verbose_name='Veli Adı', null=False)
     veli_tel = models.CharField(max_length=10, verbose_name='Veli Tel', null=False)
     adres = models.TextField(verbose_name='Adres', null=True)
@@ -19,3 +19,9 @@ class Ogrenci(models.Model):
     def get_update_url(self):
         return reverse('ogrenci:duzenle', kwargs={'tc': self.tc})
 
+    @staticmethod
+    def get_list_url():
+        return reverse('ogrenci:listele')
+
+    def get_delete_url(self):
+        return reverse('ogrenci:sil', kwargs={'tc': self.tc})
