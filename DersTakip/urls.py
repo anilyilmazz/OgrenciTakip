@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from ogrenci.views import home_view
 
 app_name = 'admin'
 urlpatterns = [
+    path('', home_view),
     path('admin/', admin.site.urls),
-    path('', include('ogrenci.urls')),
+    path('ogrenci/', include('ogrenci.urls')),
+    path('ogretmen/', include('ogretmenler.urls')),
 
 ]

@@ -6,6 +6,7 @@
 {% block body %}
     <form method="post">
         {% csrf_token %}
+
         <div class="form-group offset-1">
             <div class="row m-1">
                 <div class="form-group m-1">
@@ -30,9 +31,7 @@
                     {{ forms.veli_tel|as_crispy_field }}
                 </div>
             </div>
-            <div class="row mb-1">
 
-            </div>
 
             <div class="row m-1">
                 <div class="form-group m-1  ">
