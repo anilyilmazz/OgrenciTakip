@@ -22,6 +22,7 @@ urlpatterns = [
     path('', home_view),
     path('admin/', admin.site.urls),
     path('ogrenci/', include('ogrenci.urls')),
-    path('ogretmen/', include('ogretmenler.urls')),
+
+    path('accounts/', include('accounts.urls')),
 
 ]

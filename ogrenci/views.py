@@ -1,6 +1,7 @@
 import pandas
 from django.contrib import messages
-from django.http import HttpResponseRedirect, Http404
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import OgrenciForm
@@ -9,19 +10,29 @@ from .models import Ogrenci
 
 # Create your views here.
 
+def is_member_list(user):
+    return user.groups.filter(name__in=['ogretmenler', 'yonetici', 'root']).exists()
+
+
+def is_member_yonetici(user):
+    return user.groups.filter(name__in=['yonetici']).exists()
+
 
 def home_view(request):
     return render(request, 'home.html', {'title': 'Anasayfa'})
 
 
+@login_required
+@user_passes_test(is_member_list)
 def ogrenci_listele(request):
+    # print(request.user.groups.all())
     ogrenciler = Ogrenci.objects.all()
     return render(request, 'ogrenci/listele.html', {'ogrenciler': ogrenciler})
 
 
+@login_required
+@user_passes_test(is_member_yonetici)
 def ogrenci_ekle(request):
-    # if not request.user.is_authenticated:
-    #     return Http404()
     forms = OgrenciForm(request.POST or None)
     if forms.is_valid():
         forms.save()
@@ -31,9 +42,10 @@ def ogrenci_ekle(request):
     return render(request, 'ogrenci/form.html', context)
 
 
+@login_required
+@user_passes_test(is_member_yonetici)
 def Excel(request):
     if request.method == 'POST':
-        # if request.FILES:
         upload_file = request.FILES['document']
         data = pandas.read_excel(io=upload_file, sheet_name=0)  # , encoding='utf-8'
         ogrenciler = []
@@ -54,9 +66,9 @@ def Excel(request):
     return render(request, 'ogrenci/excelForm.html')
 
 
+@login_required
+@user_passes_test(is_member_yonetici)
 def ogrenci_duzenle(request, tc):
-    # if not request.user.is_authenticated:
-    #     return Http404()
 
     ogrenci = get_object_or_404(Ogrenci, tc=tc)
     forms = OgrenciForm(request.POST or None, instance=ogrenci)
@@ -70,9 +82,9 @@ def ogrenci_duzenle(request, tc):
     return render(request, 'ogrenci/updateForm.html', context)
 
 
+@login_required
+@user_passes_test(is_member_yonetici)
 def ogrenci_sil(request, tc):
-    # if not request.user.is_authenticated:
-    #     return Http404()
     ogrenci = get_object_or_404(Ogrenci, tc=tc)
     ogrenci.delete()
     return redirect('ogrenci:listele')
