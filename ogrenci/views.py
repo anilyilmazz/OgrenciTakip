@@ -87,4 +87,5 @@ def ogrenci_duzenle(request, tc):
 def ogrenci_sil(request, tc):
     ogrenci = get_object_or_404(Ogrenci, tc=tc)
     ogrenci.delete()
+    messages.success(request, 'Kayıt Silindi.')
     return redirect('ogrenci:listele')

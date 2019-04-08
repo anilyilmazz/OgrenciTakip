@@ -30,21 +30,21 @@
 
             </li>
 
-            {#            <li class="nav-item dropdown">#}
-            {##}
-            {#                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"#}
-            {#                   aria-haspopup="true" aria-expanded="false">#}
-            {#                    Ögretmen#}
-            {#                </a>#}
-            {##}
-            {#                <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-            {##}
-            {#                    <a class="dropdown-item" href="{% url 'ogretmen:ogretmenListele' %}">Listele</a>#}
-            {#                    <div class="dropdown-divider"></div>#}
-            {#                    <a class="dropdown-item" href="{% url 'ogretmen:ekle' %}">Öğretmen Ekle</a>#}
-            {#                    <a class="dropdown-item" href="{% url 'ogrenci:excel_Ekle' %}">Excelden İçe Aktar</a>#}
-            {##}
-            {#                </div>#}
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Dersler
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    <a class="dropdown-item" href="{% url 'dersler:listele' %}">Listele</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'dersler:ekle' %}">Ekle</a>
+                    {#                    <a class="dropdown-item" href="{% url 'ogrenci:excel_Ekle' %}">Excelden İçe Aktar</a>#}
+
+                </div>
 
                 {% if not request.user.is_authenticated %}
                     <li class="nav-item active ">
