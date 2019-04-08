@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+
+        <table class="table table-sm table-bordered table-dark">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Ders</th>
+                <th>Öğrenci</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for  dersogrenci in dersogrenciler %}
+                <tr>
+                    <td><a href="{{ dersogrenci.get_update_url }}">{{ forloop.counter }}</a></td>
+                    <td>{{ dersogrenci.Id_dersogrenci }}   </td>
+                    <td>{{ dersogrenci.ders }}  </td>
+                    <td>{{ dersogrenci.ogrenci }} </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
